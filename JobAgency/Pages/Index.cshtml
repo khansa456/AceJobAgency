@@ -1,0 +1,20 @@
+﻿@page
+@using JobAgency.Model;
+@attribute [AuthorizeSession]
+
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome, @ViewData["FirstName"] @ViewData["LastName"]</h1>
+    <p>Gender: @ViewData["Gender"]</p>
+    <p>NRIC: @ViewData["NRIC"]</p>
+    <p>Date of Birth: @ViewData["DateOfBirth"]</p>
+    <p>Email Address: @ViewData["Email"]</p>
+    <p>Resume: @ViewData["ResumeFileName"]</p>
+    <p>Who am I: @ViewData["WhoAmI"]</p>
+
+</div>
+

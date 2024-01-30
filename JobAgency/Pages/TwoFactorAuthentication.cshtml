@@ -1,0 +1,32 @@
+﻿@page
+@model JobAgency.Pages.TwoFactorAuthenticationModel
+@{
+    ViewData["Title"] = "Two-Factor Authentication";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-8 col-lg-6">
+            <h2>@ViewData["Title"]</h2>
+            <p>Please enter the verification code sent to your email:</p>
+
+            <form method="post">
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <label class="form-label" for="verificationCode">Verification Code:</label>
+                    <input type="text" id="verificationCode" name="verificationCode" class="form-control" required />
+                </div>
+                <button type="submit" class="btn btn-primary">Verify</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

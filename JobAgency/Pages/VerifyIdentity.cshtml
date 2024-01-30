@@ -1,0 +1,32 @@
+﻿@page
+@model VerifyIdentityModel
+@{
+    ViewData["Title"] = "Verify Identity";
+}
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-12 col-lg-8">
+            <h1 class="mb-3">Verify Identity</h1>
+
+            <form method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="Email">Email:</label>
+                    <input asp-for="Email" type="email" class="form-control" required />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="WhoAmI">Who Am I:</label>
+                    <input asp-for="WhoAmI" class="form-control" required />
+                    <span asp-validation-for="WhoAmI" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Verify Identity</button>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,136 @@
+﻿@page
+@model JobAgency.Pages.RegisterModel
+@section scripts {
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script type="text/javascript">
+        function onSubmit(token) {
+            document.getElementById("RModel_Email").value = document.getElementById("EmailInput").value;
+            document.getElementById("demo-form").submit();
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the password and confirm password input elements
+            var passwordInput = document.getElementById("PasswordInput");
+            var confirmPasswordInput = document.getElementById("ConfirmPasswordInput");
+
+            // Get the checklist elements
+            var minLengthCheck = document.getElementById("minLengthCheck");
+            var numberCheck = document.getElementById("numberCheck");
+            var specialCharCheck = document.getElementById("specialCharCheck");
+            var matchPasswordCheck = document.getElementById("matchPasswordCheck");
+
+            // Add input event listener to the password input
+            passwordInput.addEventListener("input", function () {
+                // Check password length
+                minLengthCheck.style.color = passwordInput.value.length >= 12 ? "green" : "red";
+                // Check for at least one number
+                numberCheck.style.color = /\d/.test(passwordInput.value) ? "green" : "red";
+                // Check for at least one special character
+                specialCharCheck.style.color = /[!@@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(passwordInput.value) ? "green" : "red";
+
+                // Check if password and confirm password match
+                matchPasswordCheck.style.color = confirmPasswordInput.value === passwordInput.value ? "green" : "red";
+            });
+
+            // Add input event listener to the confirm password input
+            confirmPasswordInput.addEventListener("input", function () {
+                // Check if password and confirm password match
+                matchPasswordCheck.style.color = confirmPasswordInput.value === passwordInput.value ? "green" : "red";
+            });
+        });
+    </script>
+}
+@{
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-12 col-lg-8">
+            <h1 class="mb-3">Register </h1>
+
+            <form method="post" id="demo-form" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.FirstName">First Name</label>
+                    <input type="text" asp-for="RModel.FirstName" class="form-control" />
+                    <span asp-validation-for="RModel.FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.LastName">Last Name</label>
+                    <input type="text" asp-for="RModel.LastName" class="form-control" />
+                    <span asp-validation-for="RModel.LastName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.Gender">Gender</label>
+                    <select asp-for="RModel.Gender" class="form-control">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <span asp-validation-for="RModel.Gender" class="text-danger"></span>
+                </div>          
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.NRIC">NRIC</label>
+                    <input type="text" asp-for="RModel.NRIC" class="form-control" />
+                    <span asp-validation-for="RModel.NRIC" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.Email">Email Address</label>
+                    <input type="text" asp-for="RModel.Email" class="form-control" id="EmailInput" />
+                    <span asp-validation-for="RModel.Email" class="text-danger"></span>
+                    <input type="hidden" asp-for="RModel.Email" id="RModel_Email" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.Password">Password</label>
+                    <input type="password" asp-for="RModel.Password" class="form-control" id="PasswordInput" />
+                    <span asp-validation-for="RModel.Password" class="text-danger"></span>
+                    <div>
+                        <ul>
+                            <li id="minLengthCheck">Minimum 12 characters</li>
+                            <li id="numberCheck">At least one number</li>
+                            <li id="specialCharCheck">At least one special character</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.ConfirmPassword">Confirm Password</label>
+                    <input type="password" asp-for="RModel.ConfirmPassword" class="form-control" id="ConfirmPasswordInput" />
+                    <span asp-validation-for="RModel.ConfirmPassword" class="text-danger"></span>
+                    <div id="matchPasswordCheck" style="color: red;">Passwords must match</div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.DateOfBirth">Date of Birth</label>
+                    <input type="date" asp-for="RModel.DateOfBirth" class="form-control" />
+                    <span asp-validation-for="RModel.DateOfBirth" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.Resume">Resume (.docx or .pdf file)</label>
+                    <input type="file" asp-for="RModel.Resume" class="form-control" />
+                    <span asp-validation-for="RModel.Resume" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.WhoAmI">Who Am I (allow all special chars)</label>
+                    <input type="text" asp-for="RModel.WhoAmI" class="form-control" />
+                    <span asp-validation-for="RModel.WhoAmI" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="g-recaptcha"
+                        data-sitekey="6LdUuzspAAAAAAtJUKDCfiQ7lVIpB7fbDo7hcWmL"
+                        data-callback='onSubmit'
+                        data-action='submit'>
+                    Register
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

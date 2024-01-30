@@ -1,0 +1,28 @@
+﻿@page
+@model JobAgency.Pages.AuditLogModel
+@{
+    ViewData["Title"] = "Audit Log";
+}
+
+<h2>Audit Log</h2>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>User ID</th>
+            <th>Action</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entry in Model.AuditLogEntries)
+        {
+            <tr>
+                <td>@entry.Timestamp</td>
+                <td>@entry.UserId</td>
+                <td>@entry.Action</td>
+                <td>@entry.Details</td>
+            </tr>
+        }
+    </tbody>
+</table>
